@@ -1,4 +1,4 @@
-package com.imooc.concurrency.example.count;
+package com.imooc.concurrency.lock;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,6 +6,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @Author zty
@@ -13,12 +15,14 @@ import java.util.concurrent.Semaphore;
  * @Description:
  */
 @Slf4j
-public class CountExample1 {
+public class LockExample2 {
     public static int cilentTotal = 5000;
 
     public static int threadTotal = 200;
 
     public static int count = 0;
+
+    private final static Lock lock = new ReentrantLock();
 
     public static void main(String[] args) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -43,7 +47,12 @@ public class CountExample1 {
         log.info("count:{}",count);
     }
 
-    private static synchronized void add(){
-        count++;
+    private static void add(){
+        lock.lock();
+        try {
+            count++;
+        }finally {
+            lock.unlock();
+        }
     }
 }

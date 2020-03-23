@@ -1,4 +1,4 @@
-package com.imooc.concurrency.example.count;
+package com.imooc.concurrency.lock;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +13,7 @@ import java.util.concurrent.Semaphore;
  * @Description:
  */
 @Slf4j
-public class CountExample1 {
+public class LockExample1 {
     public static int cilentTotal = 5000;
 
     public static int threadTotal = 200;
